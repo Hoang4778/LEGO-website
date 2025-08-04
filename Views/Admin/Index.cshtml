@@ -1,0 +1,23 @@
+﻿@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "Home";
+}
+
+<link rel="stylesheet" href="/css/admin-home.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+<script src="/js/admin-home.js" defer type="module"></script>
+<div class="section-wrapper">
+	<h1>Your revenue</h1>
+	<div class="chart-wrapper">
+		<div class="date-range-wrapper">
+			<div class="drop-down-wrapper">
+				<input id="date-picker" name="date-picker" placeholder="Pick a date range" class="date-picker" type="text" />
+				<span class="drop-down-arrow"></span>
+			</div>
+		</div>
+		<canvas class="revenue-chart"></canvas>
+	</div>
+	<p class="chart-error"></p>
+</div>

@@ -1,0 +1,34 @@
+﻿@{
+	ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="/css/button.css" />
+<link rel="stylesheet" href="/css/login.css" />
+<script src="/js/login.js" defer type="module"></script>
+<div class="section-padding login-outer">
+	<div class="container login-inner">
+		<h1 class="login-title">Login</h1>
+		<div class="login-section">
+			<div class="form-wrapper">
+				<form class="form-inner" method="post">
+					<div class="form-item form-email">
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" class="form-input email-input" placeholder="Email" maxlength="100"/>
+						<p class="email-error"></p>
+					</div>
+					<div class="form-item form-password">
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password" class="form-input password-input" maxlength="20" placeholder="Password" />
+						<p class="password-error"></p>
+					</div>
+					<div class="form-item form-action">
+						<button type="submit" class="btn-primary btn-submit">Log in</button>
+						<p class="login-error"></p>
+					</div>
+				</form>
+			</div>
+			<p class="login-note">Have no account yet? <a href="/signup" class="link signup-link">Sign up here</a></p>
+		</div>
+		<p class="logged-in">You are already logged in. Redirecting to your profile page in a moment...</p>
+	</div>
+</div> 

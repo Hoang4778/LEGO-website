@@ -1,0 +1,6 @@
+﻿@model DoAnCuoiKy.Models.Image
+
+@{
+}
+
+<img src="@Model.source" width="@Model.width" height="@Model.height" alt="@Model.altText" class="@Model.className" loading="@(Model.loadingType ?? "lazy")"/>

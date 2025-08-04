@@ -1,0 +1,100 @@
+﻿@model DoAnCuoiKy.Models.PaginatedCustomer
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "All customers";
+	int currentPage = Model.currentPage;
+	int totalPages = Model.totalPages;
+	var customers = Model.customers as List<Customer> ?? [];
+	int numberOfPagesToShow = 3;
+	int startPage = currentPage - (numberOfPagesToShow / 2);
+
+	if (startPage < 1)
+	{
+		startPage = 1;
+	}
+
+	int endPage = startPage + numberOfPagesToShow - 1;
+	if (endPage > totalPages)
+	{
+		endPage = totalPages;
+		startPage = endPage - numberOfPagesToShow + 1;
+
+		if (startPage < 1)
+		{
+			startPage = 1;
+		}
+	}
+}
+
+<div>
+	<h1>All customers</h1>
+	<div>
+		<div>
+			<span>Sort by:</span>
+			<select name="customer-sort" id="customer-sort">
+				<option value="default" selected>Default</option>
+				<option value="name-asc">Name: A to Z</option>
+				<option value="name-desc">Name: Z to A</option>
+			</select>
+		</div>
+		<button>Add customer</button>
+	</div>
+	<div>
+		@if (customers.Count > 0)
+		{
+			<table>
+				<thead>
+					<tr>
+						<th><input type="checkbox" id="all-customers" /></th>
+						<th>Full name</th>
+						<th>Email address</th>
+						<th>Phone number</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var customer in customers)
+					{
+						<tr>
+							<td><input type="checkbox" id="customer-@customer.id" /></td>
+							<td><a href="/admin/customers/@customer.id">@customer.firstName @customer.lastName</a></td>
+							<td>@customer.email</td>
+							<td>@customer.phoneNumber</td>
+							<td>@customer.address</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<div class="pagination">
+				<ul class="page-list">
+					@if (currentPage > 1)
+					{
+						<li><button data-go-to-page="1"><img src="/assets/icon/plain-double-back.png" width="20" height="20" alt="Back to beginning" /></button></li>
+						<li><button data-go-to-page="@(currentPage - 1)"><img src="/assets/icon/plain-back.png" width="20" height="20" alt="Back to last" /></button></li>
+					}
+					@for (var i = startPage; i <= endPage; i++)
+					{
+						if (i == currentPage)
+						{
+							<li>@i</li>
+						}
+						else
+						{
+							<li><button data-go-to-page="@i">@i</button></li>
+						}
+					}
+					@if (currentPage < totalPages)
+					{
+						<li><button data-go-to-page="@(currentPage + 1)"><img src="/assets/icon/plain-forward.png" width="20" height="20" alt="Moving forward" /></button></li>
+						<li><button data-go-to-page="@totalPages"><img src="/assets/icon/plain-double-forward.png" width="20" height="20" alt="Moving to the end" /></button></li>
+					}
+				</ul>
+			</div>
+		}
+		else
+		{
+			<p>There is no customers left to show.</p>
+		}
+	</div>
+</div>

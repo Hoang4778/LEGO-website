@@ -1,0 +1,32 @@
+﻿@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="/css/admin-login.css" />
+<script src="/js/admin-login.js" type="module" defer></script>
+<div class="section-wrapper">
+	<div class="login-inner">
+		<h1 class="login-title">Admin login</h1>
+		<div class="login-section">
+			<form class="form-wrapper" method="post">
+				<div class="form-item form-email">
+					<label for="email">Email</label>
+					<input type="email" name="email" id="email" class="form-input email-input" placeholder="Email" maxlength="100" />
+					<p class="email-error"></p>
+				</div>
+				<div class="form-item form-password">
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" class="form-input password-input" maxlength="20" placeholder="Password" />
+					<p class="password-error"></p>
+				</div>
+				<div class="form-item form-action">
+					<button type="submit" class="btn-primary btn-submit">Log in</button>
+					<p class="login-error"></p>
+				</div>
+			</form>
+		</div>
+		<p class="logged-in">You are already logged in. Redirecting to the admin page in a moment...</p>
+	</div>
+
+</div>

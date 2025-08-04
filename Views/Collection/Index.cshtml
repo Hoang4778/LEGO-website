@@ -1,0 +1,68 @@
+﻿@model DoAnCuoiKy.Models.PaginatedCollection
+
+@{
+	ViewData["title"] = "All collections";
+
+	string sortValue = Model.methodSort;
+	int currentPage = Model.currentPage;
+	int totalPages = Model.totalPages;
+	var collections = Model.collections as List<Collection> ?? [];
+	int numberOfPagesToShow = 3;
+	int startPage = currentPage - (numberOfPagesToShow / 2);
+
+	if (startPage < 1)
+	{
+		startPage = 1;
+	}
+
+	int endPage = startPage + numberOfPagesToShow - 1;
+	if (endPage > totalPages)
+	{
+		endPage = totalPages;
+		startPage = endPage - numberOfPagesToShow + 1;
+
+		if (startPage < 1)
+		{
+			startPage = 1;
+		}
+	}
+}
+
+<link rel="stylesheet" href="~/css/all-collections.css" />
+<section class="section-padding">
+	<div class="container">
+		<h1 class="collections-title">All collections</h1>
+		@if (collections.Count > 0)
+		{
+			<div class="paginated-collections">
+				@await Html.PartialAsync("_SortingMethod", new SortingMethod {
+					sortName = "collection-sort",
+					chosenOption = sortValue,
+					sortOptions = new List<SortOption>() {
+					 	new SortOption { name = "Default", value = "default" },
+					 	new SortOption { name = "Name: A to Z", value = "name-asc" },
+					 	new SortOption { name = "Name: Z to A", value = "name-desc" },
+					}
+				})
+				<div class="collection-wrapper">
+					@foreach (var collection in collections)
+					{
+						<div class="collection-item">
+							@await Html.PartialAsync("_Image", new Image { width = 390, height = 186, altText = $"{collection.title} thumbnail", source = collection.imageURL, className = "collection-image", loadingType = "lazy" })
+							<a href="/collections/@collection.handle" class="collection-link link">
+								<h3>@collection.title</h3>
+							</a>
+						</div>
+					}
+				</div>
+				@await Html.PartialAsync("_Pagination", new Pagination {currentPage = currentPage, startPage = startPage, endPage = endPage, totalPages = totalPages})
+			</div>
+		}
+		else
+		{
+			<div class="empty-list">
+				<p>Sorry, there is no collections of LEGO for you here.</p>
+			</div>
+		}
+	</div>
+</section>

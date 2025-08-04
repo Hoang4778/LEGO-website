@@ -1,0 +1,88 @@
+﻿@{
+	Layout = "_AdminLayout";
+	var product = ViewData["admin_product"] as DoAnCuoiKy.Models.Product;
+	ViewData["Title"] = product.title != null ? product.title : "New";
+	var collections = ViewData["admin_collections"] as List<DoAnCuoiKy.Models.Collection> ?? [];
+
+	var statusesToChoose = new List<SelectListItem> {
+		new SelectListItem {Text = "Active", Value = "true", Selected = product.status},
+		new SelectListItem {Text = "Inactive", Value = "false", Selected = !product.status}
+	};
+
+	var collectionsToChoose = new List<SelectListItem>();
+	foreach (var collection in collections)
+	{
+		var selectListItem = new SelectListItem { Text = collection.title, Value = collection.id.ToString(), Selected = (product.collectionId == collection.id) };
+		collectionsToChoose.Add(selectListItem);
+	}
+}
+
+<script src="/js/admin-product.js" defer type="module"></script>
+<div class="item-wrapper">
+	<div class="item-title-section">
+		<a href="/admin/products" class="link">
+			@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/back.png", altText = "Back to all products", className = "", width = 30, height = 30, loadingType = "lazy" })
+		</a>
+		<h1 class="item-title">@product.title</h1>
+	</div>
+	<div class="item-form">
+		<form method="post" class="form-wrapper">
+			<div class="form-inner-left">
+				<div class="form-group-title form-item">
+					<label for="product_title">Title</label>
+					@Html.TextBox("product_title", product.title, new { @class = "form-input title-input" })
+					<p class="title-error"></p>
+				</div>
+				<div class="form-group-description form-item">
+					<label for="product_description">Description</label>
+					@Html.TextArea("product_description", product.description, new { @class = "form-input desc-input", @rows = "10" })
+					<p class="desc-error"></p>
+				</div>
+				<div class="form-price-inventory">
+					<div class="form-group-price form-item">
+						<label for="product_price">Price</label>
+						@Html.TextBox("product_price", product.price, new { @class = "form-input price-input", @type = "number" })
+						<p class="price-error"></p>
+					</div>
+					<div class="form-group-inventory form-item">
+						<label for="product_inventory">Inventory</label>
+						@Html.TextBox("product_inventory", product.inventory, new { @class = "form-input inventory-input", @type = "number", min = "0", max = "100000000" })
+						<p class="inventory-error"></p>
+					</div>
+				</div>
+			</div>
+			<div class="form-inner-right">
+				<div class="form-model-number-status">
+					<div class="form-group-model-number form-item">
+						<label for="model_number">Model number</label>
+						@Html.TextBox("model_number", product.modelNumber, new { @class = "form-input model-number-input", @type = "number", min = "0", max = "100000000" })
+						<p class="model-number-error"></p>
+					</div>
+					<div class="form-group-status form-item">
+						<label for="status">Status</label>
+						<div class="form-drop-down">
+							@Html.DropDownList("status", statusesToChoose, new { @class = "form-input status-input" })
+							<span class="drop-down-arrow"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group-selected-collection form-item">
+					<label for="collection_id">Collection</label>
+					<div class="form-drop-down">
+						@Html.DropDownList("collection_id", collectionsToChoose, new { @class = "form-input collection-input" })
+						<span class="drop-down-arrow"></span>
+					</div>
+				</div>
+				<div class="form-product-image form-item">
+					<p>Image</p>
+					@await Html.PartialAsync("_ImageUpload", product)
+					<p class="image-upload-error"></p>
+				</div>
+			</div>
+			<div class="form-action">
+				<button class="btn-primary btn-submit" data-product-id="@product.id">Save</button>
+				<p class="submit-error"></p>
+			</div>
+		</form>
+	</div>
+</div>

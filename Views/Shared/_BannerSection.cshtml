@@ -1,0 +1,12 @@
+﻿@{
+}
+
+<link rel="stylesheet" href="/css/banner-section.css" />
+<section class="banner-section">
+	@await Html.PartialAsync("_Image", new Image { source = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302269/Easter-202504-HP-HeroSK-2x-Large_zumzvo.webp", width = 1920, height = 600, altText = "Banner section background image", className = "bg-image", loadingType = "eager" })
+	<div class="banner-inner">
+		<h2 class="banner-title">Get double loyalty points on selected sets</h2>
+		<p class="banner-description">From 3/24 to 4/2, our members earn twice as much to redeem against rewards, activities and more.</p>
+		@await Html.PartialAsync("_Button", new Button { text = "Shop now", colorStyle = "btn-primary", buttonLink = "/collections" })
+	</div>
+</section>

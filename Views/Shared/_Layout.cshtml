@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link href="/assets/logo/lego-logo.svg" rel="icon" type="image/x-icon">
+	<link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+</head>
+<body>
+	<div class="wrapper">
+		@await Html.PartialAsync("_Header")
+		<main class="main-section">
+			@RenderBody()
+		</main>
+		@await Html.PartialAsync("_Footer")
+	</div>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

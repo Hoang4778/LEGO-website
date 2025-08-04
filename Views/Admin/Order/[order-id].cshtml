@@ -1,0 +1,145 @@
+﻿@{
+	Layout = "_AdminLayout";
+	var order = ViewData["order"] as DoAnCuoiKy.Models.DetailedOrder;
+	ViewData["Title"] = order.id != 0 ? $"Order {order.id}" : "New order";
+	List<OrderedProduct> orderedProducts = ViewData["orderedProducts"] as List<OrderedProduct>;
+
+	int itemCount = 0;
+	decimal subtotal = 0;
+	decimal tax = 0;
+	decimal shippingFee = 0;
+	decimal total = 0;
+
+	if (orderedProducts != null && orderedProducts.Count > 0)
+	{
+		foreach (var orderedProduct in orderedProducts)
+		{
+			itemCount += orderedProduct.quantity;
+			subtotal += Math.Round((orderedProduct.quantity * orderedProduct.price) * 100) / 100;
+		}
+
+		tax = Math.Round((subtotal * 0.05m) * 100) / 100;
+		shippingFee = Math.Round((subtotal * 0.1m) * 100) / 100;
+		total = subtotal + tax + shippingFee;
+	}
+
+	List<string> statuses = new List<string>() { "Created", "Placed", "Shipping", "Delivered", "Fulfilled", "Archived", "Cancelled" };
+}
+
+<link rel="stylesheet" href="/css/admin-order.css" />
+<script src="/js/admin-order.js" defer type="module"></script>
+<div class="item-wrapper">
+	<div class="item-title-section">
+		<a href="/admin/orders" class="link">
+			@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/back.png", altText = "Back to all products", className = "", width = 30, height = 30, loadingType = "lazy" })
+		</a>
+		<h1 class="item-title">@(order.id != 0 ? $"#{order.id}" : "New order")</h1>
+	</div>
+	<div class="item-details">
+		<form method="post" class="form-wrapper">
+			<div class="left-column-details">
+				<div class="ordered-items">
+					<p class="bold-text">Ordered items</p>
+					@if (orderedProducts != null && orderedProducts.Count > 0)
+					{
+						<div class="ordered-item-list">
+							@foreach (var orderedProduct in orderedProducts)
+							{
+								<div class="ordered-item-wrapper">
+									<div class="title-image">
+										<div class="product-image-wrapper">
+											@await Html.PartialAsync("_Image", new Image { source = orderedProduct.imageURL, width = 50, height = 50, altText = orderedProduct.title, className = "", loadingType = "lazy" })
+										</div>
+										<p class="product-title">@orderedProduct.title</p>
+									</div>
+									<div class="price-quantity">
+										<p>$@orderedProduct.price </p>
+										<p>x @orderedProduct.quantity</p>
+										<p class="bold-text">$@(Math.Round((orderedProduct.price * orderedProduct.quantity) * 100) / 100)</p>
+									</div>
+								</div>
+							}
+						</div>
+					}
+					else
+					{
+						<div class="product-search-input-wrapper">
+							<input type="text" class="product-search-input form-input" placeholder="Search product" />
+							<div class="product-search-list"></div>
+						</div>
+						<div class="chosen-products-wrapper"></div>
+					}
+				</div>
+				<div class="order-total">
+					<p class="bold-text">Order summary</p>
+					<div class="order-total-detail">
+						<p>Item count</p>
+						<p class="bold-text">@itemCount</p>
+					</div>
+					<div class="order-total-detail">
+						<p>Subtotal</p>
+						<p class="bold-text">$@subtotal</p>
+					</div>
+					<div class="order-total-detail">
+						<p>Shipping fee</p>
+						<p class="bold-text">$@shippingFee</p>
+					</div>
+					<div class="order-total-detail">
+						<p>Tax</p>
+						<p class="bold-text">$@tax</p>
+					</div>
+					<div class="order-total-detail">
+						<p>Total</p>
+						<p class="bold-text">$@total</p>
+					</div>
+				</div>
+			</div>
+			<div class="right-column-details">
+				<div class="order-status-wrapper">
+					<p class="bold-text">Status</p>
+					<div class="drop-down-wrapper">
+						<select class="order-status">
+							@foreach (string status in statuses)
+							{
+								<option selected="@(order.status == status ? true : false)" value="@status">@status</option>
+							}
+						</select>
+						<span class="drop-down-arrow"></span>
+					</div>
+				</div>
+				<div class="customer-info-wrapper">
+					<p class="bold-text">Customer</p>
+					<div class="customer-info">
+						<div class="personal-info">
+							@if (order.id != 0)
+							{
+								<p>@order.firstName @order.lastName</p>
+								<p>@(order.phoneNumber != null ? order.phoneNumber : "No phone number")</p>
+								<p>@order.email</p>
+							}
+							else
+							{
+								<div class="name-input">
+									<input disabled="@(order.firstName == null ? false : true)" type="text" value="@order.firstName" class="form-input first-name" placeholder="First name" />
+									<input disabled="@(order.lastName == null ? false : true)" type="text" value="@order.lastName" class="form-input last-name" placeholder="Last name" />
+								</div>
+								<input disabled="@(order.phoneNumber == null ? false : true)" type="number" value="@order.phoneNumber" class="form-input phone-number" placeholder="Phone number" />
+								<input disabled="@(order.email == null ? false : true)" type="email" value="@order.email" class="form-input email" placeholder="Email address" />
+							}
+						</div>
+						<div class="shipping-detail">
+							<input type="text" value="@order.shippingAddress" class="form-input address" placeholder="Shipping address" />
+							<input type="text" value="@order.city?.Trim()" class="form-input city" placeholder="City" />
+							<input type="text" value="@order.state?.Trim()" class="form-input state" placeholder="State" />
+							<input type="text" value="@order.country?.Trim()" class="form-input country" placeholder="Country" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-action">
+				<button type="submit" class="btn-primary btn-submit" data-order-id="@order.id" data-created-date="@order.createdDate" data-order-date="@order.orderDate" data-shipped-date="@order.shippedDate" data-delivered-date="@order.deliveredDate" data-fulfilled-date="@order.fulfilledDate" data-archived-date="@order.archivedDate" data-cancelled-date="@order.cancelledDate">Save</button>
+				<p class="submit-error"></p>
+			</div>
+		</form>
+	</div>
+</div>

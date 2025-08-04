@@ -1,0 +1,74 @@
+﻿@{
+	var collection = ViewData["collection"] as DoAnCuoiKy.Models.Collection;
+	ViewData["title"] = collection.title;
+	var paginatedProducts = ViewData["paginatedProducts"] as PaginatedProductByCollection;
+	var products = paginatedProducts.products as List<Product> ?? [];
+	string selectedSort = paginatedProducts.methodSort;
+	int currentPage = paginatedProducts.currentPage;
+	int totalPages = paginatedProducts.totalPages;
+	int numberOfPagesToShow = 3;
+	int startPage = currentPage - (numberOfPagesToShow / 2);
+
+	if (startPage < 1)
+	{
+		startPage = 1;
+	}
+
+	int endPage = startPage + numberOfPagesToShow - 1;
+	if (endPage > totalPages)
+	{
+		endPage = totalPages;
+		startPage = endPage - numberOfPagesToShow + 1;
+
+		if (startPage < 1)
+		{
+			startPage = 1;
+		}
+	}
+}
+
+<link rel="stylesheet" href="/css/all-products.css" />
+<script src="/js/sortingMethod.js" defer></script>
+<section class="section-padding">
+	<div class="container">
+		<h1 class="collection-title">@collection.title</h1>
+		<p class="collection-desc">@collection.description</p>
+		@if (products.Count > 0)
+		{
+			@await Html.PartialAsync("_SortingMethod", new SortingMethod
+{
+	sortName = "product-sort",
+	chosenOption = selectedSort,
+	sortOptions = new List<SortOption>() {
+		new SortOption { value= "default", name = "Default" },
+		new SortOption { value= "name-asc", name= "Name: A to Z" },
+		new SortOption { value= "name-desc", name= "Name: Z to A" },
+		new SortOption { value= "price-asc", name= "Price: low to high" },
+		new SortOption { value= "price-desc", name= "Price: high to low" }
+		}
+})
+			<div class="product-list">
+				@foreach (var product in products)
+				{
+					<div class="product-item">
+						<div class="product-image-wrapper">
+							@await Html.PartialAsync("_Image", new Image { width = 390, height = 293, altText = $"{product.title} thumbnail", source = product.imageURL, loadingType = "lazy", className = "product-thumbnail" })
+						</div>
+						<div class="product-info">
+							<a href="/products/@product.handle" class="product-link link">
+								<h3>@product.title</h3>
+							</a>
+							<p>$@product.price</p>
+						</div>
+					</div>
+				}
+			</div>
+			@await Html.PartialAsync("_Pagination", new Pagination { currentPage = currentPage, startPage = startPage, endPage = endPage, totalPages = totalPages })
+		}
+		else
+		{
+			<p class="empty-list">There is no products in this collection</p>
+		}
+	</div>
+</section>
+

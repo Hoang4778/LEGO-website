@@ -1,0 +1,50 @@
+﻿@{
+	var featuredProducts = new List<FeaturedProduct> {
+		new FeaturedProduct {
+			mainImageLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302647/lego-60215-main-image_cg9klf.webp",
+			mainImageAltText = "Lego 60215",
+			title = "LEGO City Fire Station",
+			price = 79.99M,
+			handle = "/products/lego-city-fire-station"
+		},
+		new FeaturedProduct {
+			mainImageLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302575/lego-60104-main-image_n257cb.webp",
+			mainImageAltText = "Lego 60104",
+			title = "LEGO City Airport",
+			price = 129.99M,
+			handle = "/products/lego-city-airport"
+		},
+		new FeaturedProduct {
+			mainImageLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302543/lego-42103-main-image_zaxk2l.webp",
+			mainImageAltText = "Lego 42103",
+			title = "LEGO Technic Race Car",
+			price = 59.99M,
+			handle = "/products/lego-technic-race-car"
+		},
+		new FeaturedProduct {
+			mainImageLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302539/lego-42096-main-image_objxdd.webp",
+			mainImageAltText = "Lego 42096",
+			title = "LEGO Technic Porsche 911",
+			price = 149.99M,
+			handle = "/products/lego-technic-porsche-911"
+		},
+	};
+}
+
+<link rel="stylesheet" href="/css/featured-products.css" />
+<section class="section-padding">
+	<div class="container">
+		<h2 class="featured-products-title">Featured products</h2>
+		<div class="featured-products-wrapper">
+			@foreach (var product in featuredProducts)
+			{
+				<div class="featured-product-item">
+					@await Html.PartialAsync("_Image", new Image { source = product.mainImageLink, altText = product.mainImageAltText, width = 280, height = 210, className = "featured-product-image", loadingType = "lazy" })
+					<a href="@product.handle" class="featured-product-link link"><h3>@product.title</h3></a>
+					<p>$@product.price</p>
+					@await Html.PartialAsync("_Button", new Button { buttonLink = product.handle, text = "Show more", colorStyle = "btn-primary" })
+				</div>
+			}
+		</div>
+	</div>
+</section>

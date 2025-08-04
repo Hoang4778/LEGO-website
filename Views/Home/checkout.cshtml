@@ -1,0 +1,33 @@
+﻿@{
+	ViewData["Title"] = "Check out";
+}
+
+<link rel="stylesheet" href="/css/checkout.css" />
+<link rel="stylesheet" href="/css/button.css" />
+<script src="/js/checkout.js" defer type="module"></script>
+<script src="/js/checkout-logic.js" defer type="module"></script>
+<div class="section-padding section-outer">
+	<div class="container section-inner">
+		<h1 class="checkout-title">Checkout</h1>
+		<div class="checkout-wrapper">
+			<form class="checkout-form" method="post">
+				<div class="customer-info">
+					<div class="shipping-info"></div>
+					<div class="payment-method"></div>
+				</div>
+				<div class="order-info">
+					<div class="order-items"></div>
+					<div class="order-summary"></div>
+					<div class="order-action">
+						<button class="btn-checkout btn-primary" type="submit">Check out</button>
+						<p class="submit-error"></p>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="checkout-loading">
+			@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/lego-icon-loading.gif", width = 150, height = 112, altText = "LEGO loading icon", className = "loading-icon", loadingType = "eager" })
+		</div>
+		<p class="error-message"></p>
+	</div>
+</div>

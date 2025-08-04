@@ -1,0 +1,18 @@
+﻿@{
+	ViewData["Title"] = "Thank you for your purchase!";
+	string orderId = ViewData["orderId"].ToString();
+}
+
+<link rel="stylesheet" href="/css/thank-you.css" />
+<link rel="stylesheet" href="/css/button.css" />
+<div class="wrapper">
+	<div class="section-padding">
+		<div class="container section-wrapper">
+			<h1 class="section-title">Thank you for placing an order</h1>
+			<h3 class="section-desc">Your order #@orderId is in process. You will receive your items soon!</h3>
+			<div class="action">
+				<a class="btn-primary" href="/">Back to Home</a>
+			</div>
+		</div>
+	</div>
+</div>

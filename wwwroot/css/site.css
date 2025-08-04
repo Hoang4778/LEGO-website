@@ -1,0 +1,96 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --primary-color: #ffcc00;
+    --secondary-color: #02a5ff;
+    --third-color: #ff3300;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Manrope, sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.main-section {
+    flex: 1;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1199px) {
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+.link {
+    position: relative;
+}
+
+    .link::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2.5px;
+        background-color: black;
+        top: 100%;
+        left: 0;
+        transition: width .5s ease-in-out;
+    }
+
+    .link:hover::before {
+        width: 100%;
+    }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    list-style: none;
+}
+
+.section-padding {
+    padding: 2rem 0;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform .5s ease-in-out;
+}
+
+    button:hover {
+        transform: scale(1.2);
+    }
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.empty-list {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+

@@ -1,0 +1,112 @@
+﻿@model DoAnCuoiKy.Models.PaginatedCollection
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "All collections";
+
+	int currentPage = Model.currentPage;
+	int totalPages = Model.totalPages;
+	var collections = Model.collections as List<Collection> ?? [];
+	int numberOfPagesToShow = 3;
+	int startPage = currentPage - (numberOfPagesToShow / 2);
+
+	if (startPage < 1)
+	{
+		startPage = 1;
+	}
+
+	int endPage = startPage + numberOfPagesToShow - 1;
+	if (endPage > totalPages)
+	{
+		endPage = totalPages;
+		startPage = endPage - numberOfPagesToShow + 1;
+
+		if (startPage < 1)
+		{
+			startPage = 1;
+		}
+	}
+}
+
+<div>
+	<h1>All collections</h1>
+	<div>
+		<div>
+			<span>Sort by:</span>
+			<select name="collection-sort" id="collection-sort">
+				<option value="default" selected>Default</option>
+				<option value="name-asc">Name: A to Z</option>
+				<option value="name-desc">Name: Z to A</option>
+			</select>
+		</div>
+		<button>Add collection</button>
+	</div>
+	<div>
+		@if (collections.Count > 0)
+		{
+			<table>
+				<thead>
+					<tr>
+						<th><input type="checkbox" id="all-collections" /></th>
+						<th>ID</th>
+						<th>Thumbnail</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var collection in collections)
+					{
+						<tr>
+							<td><input type="checkbox" id="collection-@collection.id" /></td>
+							<td>@collection.id</td>
+							<td><img src="" width="30" height="30" alt="@collection.title" /></td>
+							<td><a href="/admin/collections/@collection.handle">@collection.title</a></td>
+							<td>@collection.description</td>
+							<td>
+								@if (collection.status == true)
+								{
+									<span>Active</span>
+								}
+								else
+								{
+									<span>Inactive</span>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<div class="pagination">
+				<ul class="page-list">
+					@if (currentPage > 1)
+					{
+						<li><button data-go-to-page="1"><img src="/assets/icon/plain-double-back.png" width="20" height="20" alt="Back to beginning" /></button></li>
+						<li><button data-go-to-page="@(currentPage - 1)"><img src="/assets/icon/plain-back.png" width="20" height="20" alt="Back to last" /></button></li>
+					}
+					@for (var i = startPage; i <= endPage; i++)
+					{
+						if (i == currentPage)
+						{
+							<li>@i</li>
+						}
+						else
+						{
+							<li><button data-go-to-page="@i">@i</button></li>
+						}
+					}
+					@if (currentPage < totalPages)
+					{
+						<li><button data-go-to-page="@(currentPage + 1)"><img src="/assets/icon/plain-forward.png" width="20" height="20" alt="Moving forward" /></button></li>
+						<li><button data-go-to-page="@totalPages"><img src="/assets/icon/plain-double-forward.png" width="20" height="20" alt="Moving to the end" /></button></li>
+					}
+				</ul>
+			</div>
+		}
+		else
+		{
+			<p>There is no collections left to show.</p>
+		}
+	</div>
+</div>

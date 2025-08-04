@@ -1,0 +1,32 @@
+﻿.btn-primary {
+    width: fit-content;
+    background-color: var(--primary-color);
+    padding: .5rem;
+    border-radius: .5rem;
+    font-weight: 600;
+}
+.btn-primary:hover {
+    opacity: .8;
+}
+.btn-secondary {
+    width: fit-content;
+    padding: .5rem;
+    border-radius: .5rem;
+    font-weight: 600;
+    border: 2px solid var(--primary-color);
+    position: relative;
+}
+.btn-secondary::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: var(--primary-color);
+    transition: width .5s ease-in-out;
+}
+.btn-secondary:hover::before {
+    width: 100%;
+}

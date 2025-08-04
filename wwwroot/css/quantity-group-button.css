@@ -1,0 +1,44 @@
+﻿.quantity-count::-webkit-inner-spin-button,
+.quantity-count::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-count {
+    -moz-appearance: textfield;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.chosen-quantity {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.minus-quantity, .plus-quantity {
+    padding: .5rem;
+    font-size: 1.2rem;
+}
+
+    .minus-quantity:disabled, .plus-quantity:disabled {
+        opacity: 0.5;
+    }
+
+        .minus-quantity:hover:disabled, .plus-quantity:hover:disabled {
+            cursor: no-drop;
+        }
+
+    .minus-quantity:active, .plus-quantity:active {
+        background-color: var(--primary-color);
+    }
+
+    .minus-quantity:hover, .plus-quantity:hover {
+        transform: none;
+    }

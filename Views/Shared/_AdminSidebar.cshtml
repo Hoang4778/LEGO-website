@@ -1,0 +1,33 @@
+﻿@{
+}
+
+<link rel="stylesheet" href="/css/admin-sidebar.css" />
+<script src="/js/admin-sidebar.js" defer></script>
+<header class="sidebar-wrapper">
+	<div class="sidebar-inner">
+		<div class="sidebar-bg"></div>
+		<div class="sidebar">
+			<div class="sidebar-menu">
+				<div class="admin-info">
+					<img width="100" height="100" src="/assets/placeholder/admin-thumbnail.png" alt="Admin profile thumbnail" class="admin-thumbnail" />
+					<p class="admin-greeting">Hello, <span class="admin-name">admin</span>!</p>
+				</div>
+				<nav class="side-navigation">
+					<ul class="nav-menu">
+						<li><a href="/admin" class="menu-link">Home</a></li>
+						@* <li><a href="/admin/collections" class="menu-link">Collections</a></li> *@
+						<li><a href="/admin/products" class="menu-link">Products</a></li>
+						<li><a href="/admin/orders" class="menu-link">Orders</a></li>
+						@* <li><a href="/admin/customers" class="menu-link">Customers</a></li> *@
+					</ul>
+				</nav>
+			</div>
+			<div>
+				<button class="btn-primary btn-log-out">Log out</button>
+			</div>
+			<div class="mobile-hamburger-menu">
+				@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/hamburger-menu.svg", width = 30, height = 30, altText = "hamburger menu", loadingType = "lazy", className = "hamburger-menu-icon" })
+			</div>
+		</div>
+	</div>
+</header>

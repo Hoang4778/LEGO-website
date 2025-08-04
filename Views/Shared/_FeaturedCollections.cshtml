@@ -1,0 +1,42 @@
+﻿@{
+	var featuredCollections = new List<FeaturedCollection> {
+		new FeaturedCollection {
+			title = "Lego Technic",
+			description = "Advanced Lego sets for building complex models.",
+			thumbnailLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302396/lego-technic-thumbnail_odtrdr.webp",
+			thumbnailAltText = "Lego Technic featured collection",
+			handle = "/collections/lego-technic"
+		},
+		new FeaturedCollection {
+			title = "Lego Classic",
+			description = "Classic Lego bricks for endless creative possibilities.",
+			thumbnailLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302380/lego-classic-thumbnail_ycmphj.webp",
+			thumbnailAltText = "Lego Classic featured collection",
+			handle = "/collections/lego-classic"
+		},
+		new FeaturedCollection {
+			title = "Lego City",
+			description = "Realistic Lego sets representing urban life.",
+			thumbnailLink = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302379/lego-city-thumbnail_mblvbz.webp",
+			thumbnailAltText = "Lego City featured collection",
+			handle = "/collections/lego-city"
+		}
+	};
+}
+
+<link rel="stylesheet" href="/css/featured-collections.css" />
+<section class="section-padding">
+	<div class="container">
+		<h2 class="featured-collections-title">Featured collections</h2>
+		<div class="featured-collections-wrapper">
+			@foreach (var collection in featuredCollections)
+			{
+				<div class="featured-collections-item">
+					@await Html.PartialAsync("_Image", new Image { source = collection.thumbnailLink, altText = collection.thumbnailAltText, width = 380, height = 181, className = "featured-collections-image", loadingType = "lazy" })
+					<h3>@collection.title</h3>
+					@await Html.PartialAsync("_Button", new Button { buttonLink = collection.handle, text = "Shop now", colorStyle = "btn-secondary" })
+				</div>
+			}
+		</div>
+	</div>
+</section>

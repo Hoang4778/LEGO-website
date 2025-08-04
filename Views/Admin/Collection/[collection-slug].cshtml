@@ -1,0 +1,53 @@
+﻿@{
+	Layout = "_AdminLayout";
+	var collection = ViewData["admin_collection"] as DoAnCuoiKy.Models.Collection;
+	var productsByCollectionId = ViewData["admin_products_by_collection_id"] as List<DoAnCuoiKy.Models.Product> ?? [];
+	ViewData["Title"] = $"{collection.title}";
+
+	var statusesToChoose = new List<SelectListItem> {
+		new SelectListItem {Text = "Active", Value = "true", Selected = collection.status},
+		new SelectListItem {Text = "Inactive", Value = "false", Selected = !collection.status}
+	};
+}
+
+<div>
+	<div>
+		<a href="/admin/collections"><img src="~/assets/icon/back.png" alt="Back to all collections" /></a>
+		<h1>@collection.title</h1>
+	</div>
+	<div>
+		<form method="post">
+			<div>
+				<div class="form-group-title">
+					<label for="collection_title">Title</label>
+					@Html.TextBox("collection_title", collection.title, new { @class = "form-item" })
+				</div>
+				<div class="form-group-description">
+					<label for="collection_description">Description</label>
+					@Html.TextArea("collection_description", collection.description, new { @class = "form-item" })
+				</div>
+				<div>
+					<p>Products</p>
+					<div>
+						@foreach (var product in productsByCollectionId) {
+							<div>
+								<img src="" width="30" height="30" alt="@product.title" />
+								<p><a href="/admin/products/@product.handle">@product.title</a></p>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="form-group-status">
+					<label for="status">Status</label>
+					@Html.DropDownList("status", statusesToChoose, new { @class = "form-item" })
+				</div>
+			</div>
+			<div>
+				<button>Save</button>
+			</div>
+		</form>
+	</div>
+</div>
+

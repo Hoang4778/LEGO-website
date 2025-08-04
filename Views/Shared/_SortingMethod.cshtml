@@ -1,0 +1,21 @@
+﻿@model DoAnCuoiKy.Models.SortingMethod
+
+@{
+	string sortName = Model.sortName;
+	var sortOptions = Model.sortOptions;
+	string chosenOption = Model.chosenOption;
+}
+
+<link rel="stylesheet" href="/css/sorting-method.css" />
+<script src="/js/sortingMethod.js" defer></script>
+<div class="sorting-method">
+	<span>Sort by:</span>
+	<div class="drop-down-wrapper">
+		<select name="@sortName" id="@sortName" class="sort-drop-down">
+			@foreach (var option in sortOptions) {
+				<option value="@option.value" selected="@(option.value == chosenOption)">@option.name</option>
+			}
+		</select>
+		<span class="drop-down-arrow"></span>
+	</div>
+</div>

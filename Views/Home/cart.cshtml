@@ -1,0 +1,22 @@
+﻿@{
+	ViewData["Title"] = "Your cart";
+}
+
+<link rel="stylesheet" href="/css/cart.css" />
+<link rel="stylesheet" href="/css/button.css" />
+<link rel="stylesheet" href="/css/quantity-group-button.css" />
+<script src="/js/cart.js" defer></script>
+<script src="/js/cart-logic.js" defer type="module"></script>
+<div class="section-padding outer-section">
+	<div class="container inner-section">
+		<h1 class="cart-title">Your cart</h1>
+		<div class="cart-wrapper">
+			<div class="cart-items"></div>
+			<div class="subtotal-wrapper"></div>
+			<div class="cart-loading">
+				@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/lego-icon-loading.gif", width = 150, height = 112, altText = "LEGO loading icon", className = "loading-icon", loadingType = "eager" })
+			</div>
+			<div class="continue-shopping"><a href="/collections" class="btn-primary">Continue shopping</a></div>
+		</div>
+	</div>
+</div>

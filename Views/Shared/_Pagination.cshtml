@@ -1,0 +1,51 @@
+﻿@model DoAnCuoiKy.Models.Pagination
+
+@{
+	int currentPage = Model.currentPage;
+	int startPage = Model.startPage;
+	int endPage = Model.endPage;
+	int totalPages = Model.totalPages;
+}
+
+<link rel="stylesheet" href="/css/pagination.css" />
+<div class="pagination">
+	<ul class="page-list">
+		@if (currentPage > 1)
+		{
+			<li>
+				<button class="paginated-page" data-go-to-page="1">
+					@await Html.PartialAsync("_Image", new Image { width = 20, height = 20, altText = "Back to beginning", source = "/assets/icon/plain-double-back.png", className = "", loadingType = "lazy" })
+				</button>
+			</li>
+			<li>
+				<button class="paginated-page" data-go-to-page="@(currentPage - 1)">
+					@await Html.PartialAsync("_Image", new Image { width = 20, height = 20, altText = "Back to last", source = "/assets/icon/plain-back.png", className = "", loadingType = "lazy" })
+				</button>
+			</li>
+		}
+		@for (var i = startPage; i <= endPage; i++)
+		{
+			if (i == currentPage)
+			{
+				<li class="page-number current-page">@i</li>
+			}
+			else
+			{
+				<li class="page-number"><button class="paginated-page" data-go-to-page="@i">@i</button></li>
+			}
+		}
+		@if (currentPage < totalPages)
+		{
+			<li>
+				<button class="paginated-page" data-go-to-page="@(currentPage + 1)">
+					@await Html.PartialAsync("_Image", new Image { width = 20, height = 20, altText = "Moving forward", source = "/assets/icon/plain-forward.png", className = "", loadingType = "lazy" })
+				</button>
+			</li>
+			<li>
+				<button class="paginated-page" data-go-to-page="@totalPages">
+					@await Html.PartialAsync("_Image", new Image { width = 20, height = 20, altText = "Moving to the end", source = "/assets/icon/plain-double-forward.png", className = "", loadingType = "lazy" })
+				</button>
+			</li>
+		}
+	</ul>
+</div>

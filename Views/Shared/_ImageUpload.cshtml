@@ -1,0 +1,23 @@
+﻿@model DoAnCuoiKy.Models.Product
+
+@{
+	var product = Model;
+}
+
+<link rel="stylesheet" href="/css/image-upload.css" />
+<script src="/js/image-upload.js" defer type="module"></script>
+<div class="product-image-input-block">
+	@if (product.imageURL != "")
+	{
+		<div class="current-product-image-wrapper @(product.imageURL != null ? "image-existed" : "")">
+			@await Html.PartialAsync("_Image", new Image { source = product.imageURL != null ? product.imageURL : "", width = 150, height = 150, altText = product.title, loadingType = "lazy", className = "product-image" })
+			<div class="remove-image-action">
+				@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/close.svg", width = 15, height = 15, altText = "Remove image", loadingType = "lazy", className = "remove-image-icon" })
+			</div>
+		</div>
+	}
+	<div class="product-image-input-wrapper @(product.imageURL == null ? "add-image" : "")">
+		<label class="product-image-upload-prompt" for="product-image-upload">+</label>
+		<input class="product-image-input" type="file" accept="image/*" name="product-image-upload" id="product-image-upload" data-current-image-link="@(product.imageURL != null ? product.imageURL : "")" />
+	</div>
+</div>

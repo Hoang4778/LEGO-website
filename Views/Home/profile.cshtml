@@ -1,0 +1,35 @@
+﻿@{
+	ViewData["Title"] = "Your profile";
+}
+
+<link rel="stylesheet" href="/css/profile.css" />
+<link rel="stylesheet" href="/css/button.css" />
+<script src="/js/profile.js" defer type="module"></script>
+<script src="/js/profile-logic.js" defer type="module"></script>
+<div class="section-padding">
+	<div class="container">
+		<h1 class="profile-title">Profile</h1>
+		<div class="profile-wrapper">
+			<div class="account-info"></div>
+			<div class="shipping-info"></div>
+			<div class="order-list"></div>
+		</div>
+		<div class="profile-loading">
+			@await Html.PartialAsync("_Image", new Image { source = "/assets/icon/lego-icon-loading.gif", width = 150, height = 112, altText = "LEGO loading icon", className = "loading-icon", loadingType = "eager" })
+		</div>
+		<p class="error-message"></p>
+		<div class="logout-modal-wrapper">
+			<div class="logout-modal-inner">
+				<div class="logout-modal-bg"></div>
+				<div class="logout-modal-box">
+					<h2 class="logout-modal-title">Are you sure you want to log out?</h2>
+					<div class="logout-modal-action">
+						<button class="btn-primary btn-yes">Yes</button>
+						<button class="btn-secondary btn-no">Cancel</button>
+					</div>
+					<p class="logout-error-message"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

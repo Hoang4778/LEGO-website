@@ -1,0 +1,49 @@
+﻿@{
+	ViewData["Title"] = "Sign up";
+}
+
+<link rel="stylesheet" href="/css/button.css" />
+<link rel="stylesheet" href="/css/signup.css" />
+<script src="/js/signup.js" defer type="module"></script>
+<div class="section-padding signup-outer">
+	<div class="container signup-inner">
+		<h1 class="signup-title">Signup</h1>
+		<div class="signup-section">
+			<div class="form-wrapper">
+				<form class="form-inner" method="post">
+					<div class="form-item form-first-name">
+						<label for="first-name">First name</label>
+						<input type="text" name="first-name" id="first-name" class="form-input first-name-input" placeholder="First name" maxlength="100"/>
+						<p class="first-name-error"></p>
+					</div>
+					<div class="form-item form-last-name">
+						<label for="last-name">Last name</label>
+						<input type="text" name="last-name" id="last-name" class="form-input last-name-input" placeholder="Last name" maxlength="100"/>
+						<p class="last-name-error"></p>
+					</div>
+					<div class="form-item form-email">
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" class="form-input email-input" placeholder="Email" maxlength="100"/>
+						<p class="email-error"></p>
+					</div>
+					<div class="form-item form-password">
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password" class="form-input password-input" maxlength="20" placeholder="Password" />
+						<p class="password-error"></p>
+					</div>
+					<div class="form-item form-password-confirm">
+						<label for="password-confirm">Confirm sassword</label>
+						<input type="password" name="password-confirm" id="password-confirm" class="form-input password-confirm-input" maxlength="20" placeholder="Confirm your password" />
+						<p class="password-confirm-error"></p>
+					</div>
+					<div class="form-item form-action">
+						<button type="submit" class="btn-primary btn-submit">Sign up</button>
+						<p class="signup-error"></p>
+					</div>
+				</form>
+			</div>
+			<p class="signup-note">Already have an account? <a href="/login" class="link login-link">Log in here</a></p>
+		</div>
+		<p class="signed-up">You are already signed up. Redirecting to your profile page in a moment...</p>
+	</div>
+</div>

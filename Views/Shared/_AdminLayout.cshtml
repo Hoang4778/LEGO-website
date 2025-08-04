@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Admin - @ViewData["Title"]</title>
+	<link href="/assets/logo/lego-logo.svg" rel="icon" type="image/x-icon">
+	<link rel="stylesheet" href="/css/admin-site.css" />
+	<link rel="stylesheet" href="/css/button.css" />
+	<script src="/js/admin-site.js" type="module" defer></script>
+</head>
+<body>
+	<div class="wrapper">
+		@await Html.PartialAsync("_AdminSidebar")
+		<main class="main-section">
+			@RenderBody()
+		</main>
+	</div>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

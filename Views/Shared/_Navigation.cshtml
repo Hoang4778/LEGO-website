@@ -1,0 +1,21 @@
+﻿@{
+}
+
+<link rel="stylesheet" href="/css/navigation.css" />
+<ul class="nav-list">
+	<li class="nav-item"><a href="/products" class="nav-link link">Shop all</a></li>
+	<li class="nav-item"><a href="/collections" class="nav-link link">Collections</a></li>
+	<li class="nav-item"><a href="/contact" class="nav-link link">Contact</a></li>
+</ul>
+<div class="icons">
+	<button class="btn-search">
+		@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/search.svg", altText = "Search icon", className = "search-icon", loadingType = "eager" })
+	</button>
+	<a href="/cart" class="cart-link link">
+		@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/cart.svg", altText = "Cart icon", className = "cart-icon", loadingType = "eager" })
+		<span class="item-quantity">0</span>
+	</a>
+	<a href="/profile" class="profile-link link">
+		@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/profile.svg", altText = "Profile icon", className = "profile-icon", loadingType = "eager" })
+	</a>
+</div>

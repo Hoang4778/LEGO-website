@@ -1,0 +1,44 @@
+﻿@{
+}
+<link rel="stylesheet" href="/css/header.css" asp-append-version="true" />
+<script src="/js/header.js" defer type="module"></script>
+<script src="/js/navigation.js" async></script>
+<header class="header">
+	<div class="search-section">
+		<div class="search-bar">
+			<input type="text" name="search" id="search" class="search-input" />
+			@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/close.svg", altText = "Clear search icon", className = "clear-search-icon", loadingType = "lazy" })
+			<div class="instant-result">
+				<div class="result-list">
+					<div class="collection-result"></div>
+					<div class="product-result"></div>
+				</div>
+				<p class="see-all-result"></p>
+			</div>
+		</div>
+		<button class="btn-search">
+			@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/search.svg", altText = "Search icon", className = "search-icon", loadingType = "lazy" })
+		</button>
+		<button class="btn-close-search">
+			@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/plain-double-up.png", altText = "Close search icon", className = "close-search-icon", loadingType = "lazy" })
+		</button>
+	</div>
+	<div class="container header-inner">
+		<nav class="navigation">
+			<a href="/" class="store-logo">
+				@await Html.PartialAsync("_Image", new Image { width = 55, height = 55, source = "/assets/logo/lego-logo.svg", altText = "Your LEGO world logo", className = "logo-img", loadingType = "eager" })
+			</a>
+			<div class="desktop-nav">
+				@await Html.PartialAsync("_Navigation")
+			</div>
+			<div class="mobile-nav">
+				@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/hamburger-menu.svg", altText = "hamburger menu", className = "hamburger-icon", loadingType = "eager" })
+				<div class="mobile-menu-background"></div>
+				<div class="mobile-menu">
+					@await Html.PartialAsync("_Image", new Image { width = 25, height = 25, source = "/assets/icon/close.svg", altText = "close icon", className = "close-icon", loadingType = "lazy" })
+					@await Html.PartialAsync("_Navigation")
+				</div>
+			</div>
+		</nav>
+	</div>
+</header>

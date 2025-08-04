@@ -1,0 +1,103 @@
+﻿.wrapper {
+    height: 100%;
+}
+.section-outer, .section-inner {
+    height: 100%;
+}
+.checkout-title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.checkout-loading.stop-loading, .checkout-wrapper {
+    display: none;
+}
+.checkout-wrapper.active {
+    display: block;
+}
+.checkout-loading {
+    display: grid;
+    place-items: center;
+}
+.checkout-form {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+}
+.checkout-form input {
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    border: 1px solid black;
+    font-size: 1.1rem;
+}
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+.item-info {
+    text-align: right;
+    flex: 1;
+}
+.subtotal, .total, .tax, .shipping-fee, .checkout-item-quantity, .checkout-item-price {
+    font-weight: 700;
+}
+.order-summary p {
+    text-align: right;
+}
+.order-info-pcs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+}
+.customer-info, .shipping-info, .payment-method {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.shipping-info-inner, .payment-method-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+}
+.submit-error {
+    width: fit-content;
+}
+.btn-checkout, .submit-error {
+    margin-left: auto;
+}
+.form-item input {
+    width: 100%;
+}
+.order-info-pcs .total::before {
+    content: "$";
+    font-weight: 700;
+}
+.email-error, .phone-number-error, .country-error, .state-error, .city-error, .address-error, .card-number-error, .card-name-error, .expiration-date-error, .card-cvv-error, .submit-error {
+    color: var(--third-color);
+    margin-top: .5rem;
+    font-size: .8rem;
+}
+.btn-checkout:disabled {
+    opacity: .5;
+    transform: none;
+}
+
+@media (max-width: 768px) {
+    .checkout-form {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 640px) {
+    .shipping-info-inner, .payment-method-inner {
+        grid-template-columns: 1fr;
+    }
+}

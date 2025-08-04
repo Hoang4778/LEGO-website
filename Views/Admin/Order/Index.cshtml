@@ -1,0 +1,118 @@
+﻿@model DoAnCuoiKy.Models.PaginatedOrder
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "All orders";
+
+	int currentPage = Model.currentPage;
+	int totalPages = Model.totalPages;
+	string selectedSort = Model.selectedSort;
+	var orders = Model.orders as List<OrderAndCustomer> ?? [];
+	int numberOfPagesToShow = 3;
+	int startPage = currentPage - (numberOfPagesToShow / 2);
+
+	if (startPage < 1)
+	{
+		startPage = 1;
+	}
+
+	int endPage = startPage + numberOfPagesToShow - 1;
+	if (endPage > totalPages)
+	{
+		endPage = totalPages;
+		startPage = endPage - numberOfPagesToShow + 1;
+
+		if (startPage < 1)
+		{
+			startPage = 1;
+		}
+	}
+}
+
+<script src="/js/admin-list-logic.js" defer></script>
+<div class="section-wrapper">
+	<h1 class="section-title">All orders</h1>
+	<div class="collection-wrapper">
+		<div class="group-action">
+			<div class="action-btn">
+				@* <a href="/admin/orders/0?createOrder=yes" class="btn-secondary" target="_blank">Create order</a> *@
+			</div>
+			@await Html.PartialAsync("_SortingMethod", new SortingMethod
+{
+	sortName = "order-sort",
+	chosenOption = selectedSort,
+	sortOptions = new List<SortOption>() {
+			new SortOption { value= "default", name = "Default" },
+			new SortOption { value= "order-date-asc", name= "Order date: ascending" },
+			new SortOption { value= "order-date-desc", name= "Order date: descending" },
+			}
+})
+		</div>
+		<div class="collection-table">
+			@if (orders.Count > 0)
+			{
+				<div class="table-wrapper">
+					<table>
+						<thead>
+							<tr>
+								<th class="check-all-items"><input type="checkbox" id="all-orders" class="check-all-input" /></th>
+								<th>ID</th>
+								<th>Order date</th>
+								<th>Customer</th>
+								<th>Total</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var order in orders)
+							{
+								<tr class="list-item" data-list-item-link="/admin/orders/@(order.id)">
+									<td class="check-single-item"><input type="checkbox" id="order-@order.id" class="check-single-input" /></td>
+									<td data-label="ID: ">#@order.id</td>
+									<td data-label="Order date: ">@order.orderDate?.ToString(@"MMM dd, yyyy hh\:mm tt")</td>
+									<td data-label="Customer: ">@order.firstName @order.lastName</td>
+									<td data-label="Total: ">$@order.total</td>
+									<td data-label="Status: ">
+										@if (order.status == "Placed")
+										{
+											<span>Placed</span>
+										}
+										else if (order.status == "Shipping")
+										{
+											<span>Shipping</span>
+										}
+										else if (order.status == "Delivered")
+										{
+											<span>Delivered</span>
+										}
+										else if (order.status == "Fulfilled")
+										{
+											<span>Fulfilled</span>
+										}
+										else if (order.status == "Archived")
+										{
+											<span>Archived</span>
+										}
+										else if (order.status == "Cancelled")
+										{
+											<span>Cancelled</span>
+										}
+										else if (order.status == "Created")
+										{
+											<span>Created</span>
+										}
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				@await Html.PartialAsync("_Pagination", new Pagination { currentPage = currentPage, startPage = startPage, endPage = endPage, totalPages = totalPages })
+			}
+			else
+			{
+				<p class="empty-list">There is no orders left to show.</p>
+			}
+		</div>
+	</div>
+</div>

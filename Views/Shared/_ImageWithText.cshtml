@@ -1,0 +1,16 @@
+﻿@{
+}
+
+<link rel="stylesheet" href="/css/image-with-text.css" />
+<section class="section-padding">
+	<div class="container">
+		<div class="image-with-text">
+			@await Html.PartialAsync("_Image", new Image { source = "https://res.cloudinary.com/dpmed5hfe/image/upload/v1744302338/Easter-Tabbed-202504-Page-Hero-Tall-Large_rmhceb.jpg", width = 600, height = 493, altText = "Side image in the image with text section", className = "side-image-with-text", loadingType = "lazy" })
+			<div class="side-text">
+				<h2>Easter treats for all</h2>
+				<p>Make Easter more awesome when you fill their baskets with buildable fun!</p>
+				@await Html.PartialAsync("_Button", new Button { text = "Shop collection", colorStyle = "side-button link", buttonLink = "/collections/lego-friends" })
+			</div>
+		</div>
+	</div>
+</section>

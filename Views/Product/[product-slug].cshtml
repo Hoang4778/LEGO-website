@@ -1,0 +1,37 @@
+﻿@{
+	var product = ViewData["product"] as DoAnCuoiKy.Models.Product;
+	ViewData["Title"] = product.title;
+}
+
+<link rel="stylesheet" href="/css/product.css" />
+<link rel="stylesheet" href="/css/quantity-group-button.css" />
+<script src="/js/product.js" defer></script>
+<div class="section-padding">
+	<div class="container">
+		<section class="product-summary">
+			@await Html.PartialAsync("_Image", new Image { width = 600, height = 600, altText = product.title, className = "product-thumbnail", loadingType = "eager", source = product.imageURL })
+			<div class="product-info">
+				<h1>@product.title</h1>
+				<div class="price-wrapper">$<span class="price">@product.price</span></div>
+				<div class="chosen-quantity">
+					<button class="minus-quantity">-</button>
+					<input class="quantity-count" id="quantity-count" name="quantityCount" type="number" min="1" max="10" value="1" step="1" data-product-id="@product.id"/>
+					<button class="plus-quantity">+</button>
+				</div>
+				@if (product.inventory == 0)
+				{
+					<button class="btn-sold-out" disabled>Sold out</button>
+				}
+				else
+				{
+					<button class="btn-add-to-cart" data-product-id="@product.id" data-product-title="@product.title" data-product-price="@product.price" data-product-image-url="@product.imageURL" data-product-handle="@product.handle">Add to cart</button>
+					<button class="btn-buy-now" data-product-id="@product.id" data-product-title="@product.title" data-product-price="@product.price" data-product-image-url="@product.imageURL" data-product-handle="@product.handle">Buy now</button>
+				}
+			</div>
+		</section>
+		<section class="desc-section">
+			<h2 class="desc-title">Description</h2>
+			<p class="desc-content">@product.description</p>
+		</section>
+	</div>
+</div>

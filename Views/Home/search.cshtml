@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Search";
+	var searchTerm = ViewData["searchTerm"] as string ?? "";
+	var displayedSearchTerm = searchTerm.Replace("+", " ");
+	var searchResult = ViewData["searchResult"] as DoAnCuoiKy.Models.SearchResult;
+	var collectionList = searchResult.collections;
+	var productList = searchResult.products;
+}
+
+<link rel="stylesheet" href="/css/search.css" />
+<div class="section-padding">
+	<div class="container">
+		<h1 class="search-title">Search result for <b class="search-term">@displayedSearchTerm</b></h1>
+		<div class="search-wrapper">
+			<div class="collection-wrapper">
+				@if (collectionList.Count > 0)
+				{
+					<h2 class="collection-heading">Collection</h2>
+					<div class="collection-list">
+						@foreach (var collection in collectionList)
+						{
+							<div class="collection-item">
+								<div class="collection-image-wrapper">
+									@await Html.PartialAsync("_Image", new Image { source = collection.imageURL, altText = collection.title, className = "collection-image", loadingType = "lazy", width = 390, height = 186 })
+								</div>
+								<a href="/collections/@collection.handle" class="link collection-link"><h3>@collection.title</h3></a>
+							</div>
+						}
+					</div>
+				}
+			</div>
+			<div class="product-wrapper">
+				@if (productList.Count > 0)
+				{
+					<h2 class="product-heading">Product</h2>
+					<div class="product-list">
+						@foreach (var product in productList)
+						{
+							<div class="product-item">
+								<div class="product-image-wrapper">
+									@await Html.PartialAsync("_Image", new Image { source = product.imageURL, altText = product.title, className = "product-thumbnail", loadingType = "lazy", width = 390, height = 293 })
+								</div>
+								<div class="product-info">
+									<a href="@product.handle" class="link product-link">@product.title</a>
+									<p>@product.price</p>
+								</div>
+							</div>
+						}
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+

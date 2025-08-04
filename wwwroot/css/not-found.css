@@ -1,0 +1,8 @@
+﻿.wrapper {
+    height: 100%;
+}
+.not-found-section {
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
