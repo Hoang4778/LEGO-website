@@ -21,7 +21,7 @@ git clone https://github.com/Hoang4778/LEGO-website.git
 
 2. Step 2: Checkout to the "development" branch before starting the project
 
-3. Step 3: Create a database named "LegoWebsite", and import the file "LegoWebsite - Database.sql" from the project root directory
+3. Step 3: In your SQL Server, create a database named "LegoWebsite", and import the file "LegoWebsite - Database.sql" from the project root directory
 
 4. Step 4: Start the project by running the following command or click the Run button at the top of your IDE if you are using Visual Studio:
 ```bash
